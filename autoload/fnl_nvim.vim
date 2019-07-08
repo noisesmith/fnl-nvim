@@ -19,10 +19,17 @@ endfunction
 
 function! fnl_nvim#compile(s)
   return luaeval(
-        \ 'require("fennel").compileString(_A.s)',
+        \ 'table.concat(require("fennel").compileString(_A.s), "\\n")',
         \ {'s': a:s}
         \ )
 endfunction
+
+" function fnl_nvim#compile_interactive() range
+"   return luaeval(
+"         \ 'string.gsub(require("fennel").compileString(_A.s), "\n", "\\n")',
+"         \ {'s': a:s}
+"         \ )
+" endfunction
 
 function! fnl_nvim#dofile(s)
   return luaeval(
@@ -37,4 +44,4 @@ endfunction
 
 command! -nargs=1 Fnl call fnl_nvim#eval(<f-args>)
 command! -nargs=1 -complete=file FnlFile echo fnl_nvim#dofile(<f-args>)
-command! -nargs=1 FnlCompile echo fnl_nvim#compile(<f-args>)
+command! -nargs=1 FnlCompile echo fnl_nvim#compilestr(<f-args>)
