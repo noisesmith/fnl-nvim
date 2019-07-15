@@ -4,10 +4,7 @@ lua require("patch_searcher")()
 
 " Return the result of evaluating expr in fennel
 function! fnl_nvim#eval(s)
-  return luaeval(
-        \ 'require("fennel").eval(_A.s)',
-        \ {'s': a:s}
-        \ )
+  return luaeval('require("fennel").eval(_A.s)', {'s': a:s})
 endfunction
 
 " function! fnl_nvim#evalarg(s, m)
@@ -18,10 +15,8 @@ endfunction
 " endfunction
 
 function! fnl_nvim#compile(s)
-  return luaeval(
-        \ 'table.concat(require("fennel").compileString(_A.s), "\\n")',
-        \ {'s': a:s}
-        \ )
+  let l:code = 'table.concat(require("fennel").compileString(_A.s), "\\n")'
+  return luaeval(l:code, {'s': a:s})
 endfunction
 
 " function fnl_nvim#compile_interactive() range
@@ -32,10 +27,7 @@ endfunction
 " endfunction
 
 function! fnl_nvim#dofile(s)
-  return luaeval(
-        \ 'require("fennel").dofile(_A.s)',
-        \ {'s': a:s}
-        \ )
+  return luaeval('require("fennel").dofile(_A.s)', {'s': a:s})
 endfunction
 
 function! fnl_nvim#version()
